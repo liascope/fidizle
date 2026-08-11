@@ -13,6 +13,7 @@ import WatchedMoviesList from './components/WatchedMoviesList'
 import Loader from './components/Loader'
 import Error from './components/Error'
 import { WatchedMovie } from './components/WatchedSummary'
+import Footer from './components/Footer'
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('')
@@ -42,7 +43,6 @@ export default function HomeScreen() {
           Found <Text style={styles.numResults}>{movies?.length}</Text> results.
         </Text>
       </HomeHeader>
-
       <View style={styles.main}>
         <Box>
           {isLoading && <Loader />}
@@ -60,6 +60,7 @@ export default function HomeScreen() {
           )}
         </Box>
       </View>
+      <Footer />
     </>
   )
 }

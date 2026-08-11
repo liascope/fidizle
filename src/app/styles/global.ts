@@ -413,4 +413,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
   },
+  footer: { alignItems: 'center', justifyContent: 'center', paddingVertical: 16 },
+  footerText: { fontSize: 14, color: '#adb5bd' },
 })
