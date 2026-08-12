@@ -37,10 +37,10 @@ export default function HomeScreen() {
   }
 
   return (
-    <LinearGradient colors={['#090909', '#2b0404', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.container}>
+    <LinearGradient colors={['#090909', '#260909', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.container}>
       <HomeHeader>
         <Search query={query} setQuery={setQuery}></Search>
-        <Text>
+        <Text style={styles.results}>
           Found <Text style={styles.numResults}>{movies?.length}</Text> results.
         </Text>
       </HomeHeader>

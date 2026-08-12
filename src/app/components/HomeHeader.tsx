@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 export default function HomeHeader({ children }: { children: React.ReactNode }) {
   return (
-    <LinearGradient colors={['#090909', '#472727', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.navBar}>
+    <LinearGradient colors={['#080808', '#4A1518', '#080808']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.navBar}>
       {/* obere Filmperforation */}
       <View style={[styles.filmHoles, styles.filmHolesTop]}>
         {Array.from({ length: 18 }).map((_, i) => (

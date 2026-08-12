@@ -5,7 +5,8 @@ export default function Footer() {
   return (
     <View style={styles.footer}>
       <Text style={styles.footerText}>
-        fidizle | © {new Date().getFullYear()} <Text style={styles.footerBrand}>liascope</Text>
+        <Text style={styles.footerBrand}>fidizle</Text>
+        {' | © 2026 liascope'}
       </Text>
     </View>
   )

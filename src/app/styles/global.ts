@@ -113,8 +113,8 @@ export const styles = StyleSheet.create({
   },
 
   numResults: {
-    color: colors.text,
-    fontWeight: '700',
+    color: colors.primaryDark,
+    fontWeight: '900',
   },
 
   btnToggle: {
