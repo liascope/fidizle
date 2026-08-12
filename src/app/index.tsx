@@ -36,7 +36,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <HomeHeader>
         <Search query={query} setQuery={setQuery}></Search>
         <Text>
@@ -61,6 +61,6 @@ export default function HomeScreen() {
         </Box>
       </View>
       <Footer />
-    </>
+    </View>
   )
 }

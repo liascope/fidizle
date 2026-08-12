@@ -1,25 +1,75 @@
 import { StyleSheet } from 'react-native'
 
 export const colors = {
-  primary: '#6741d9',
-  primaryLight: '#7950f2',
-  text: '#dee2e6',
-  textDark: '#adb5bd',
-  background100: '#343a40',
-  background500: '#2b3035',
-  background900: '#212529',
-  red: '#fa5252',
-  redDark: '#e03131',
-}
+  // Brand
+  primary: '#E50914',
+  primaryLight: '#FF1A25',
+  primaryDark: '#B20710',
 
+  // Text
+  text: '#F5F5F5',
+  textDark: '#A3A3A3',
+  textMuted: '#737373',
+
+  // Backgrounds
+  background: '#0A0A0A',
+  background100: '#181818',
+  background500: '#222222',
+  background900: '#0A0A0A',
+
+  // Borders
+  border: '#2E2E2E',
+}
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    padding: 16,
+  },
+
   navBar: {
-    height: 72,
-    backgroundColor: colors.primary,
-    borderRadius: 9,
+    height: 110,
+    borderRadius: 10,
+    overflow: 'hidden',
+    position: 'relative',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#333',
+  },
+
+  navBarContent: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+
+  filmHoles: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: 14,
+    flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+
+  filmHolesTop: {
+    top: 6,
+  },
+
+  filmHolesBottom: {
+    bottom: 6,
+  },
+
+  filmHole: {
+    width: 18,
+    height: 9,
+    borderRadius: 2,
+    backgroundColor: colors.text,
+    borderWidth: 1,
+    borderColor: '#333',
   },
 
   logo: {
@@ -29,33 +79,43 @@ export const styles = StyleSheet.create({
   },
 
   logoIcon: {
-    fontSize: 32,
+    fontSize: 28,
   },
 
   logoTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#fff',
+    fontSize: 25,
+    fontWeight: '800',
+    color: colors.primaryLight,
   },
 
   search: {
-    paddingVertical: 11,
-    paddingHorizontal: 16,
-    fontSize: 18,
-    borderRadius: 7,
-    width: 320,
-    color: colors.text,
-    backgroundColor: colors.primaryLight,
-  },
+    flex: 1,
+    maxWidth: 420,
+    marginHorizontal: 16,
 
+    height: 42,
+    paddingHorizontal: 14,
+
+    backgroundColor: colors.background500,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 8,
+
+    color: colors.text,
+    fontSize: 16,
+  },
   searchPlaceholder: {
     color: colors.textDark,
   },
 
+  results: {
+    color: colors.textDark,
+    fontSize: 14,
+  },
+
   numResults: {
-    fontSize: 18,
     color: colors.text,
-    margin: 7,
+    fontWeight: '700',
   },
 
   btnToggle: {
@@ -105,25 +165,29 @@ export const styles = StyleSheet.create({
 
   box: {
     flex: 1,
-    width: '80%',
-    backgroundColor: colors.background500,
-    borderRadius: 9,
+    backgroundColor: colors.background100,
+    borderRadius: 10,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.border,
   },
 
   listItem: {
+    minHeight: 100,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 20,
     gap: 16,
+    padding: 14,
+
+    backgroundColor: colors.background100,
     borderBottomWidth: 1,
-    borderBottomColor: colors.background100,
+    borderBottomColor: colors.border,
   },
 
   listImage: {
-    width: 50,
+    width: 70,
     height: 70,
+    borderRadius: 3,
     resizeMode: 'cover',
   },
 
@@ -133,14 +197,14 @@ export const styles = StyleSheet.create({
   },
 
   listTitle: {
-    fontSize: 18,
-    fontWeight: '600',
     color: colors.text,
+    fontSize: 17,
+    fontWeight: '600',
   },
 
   listText: {
-    fontSize: 14,
     color: colors.textDark,
+    fontSize: 14,
   },
 
   list: {
@@ -175,7 +239,7 @@ export const styles = StyleSheet.create({
     width: 20,
     borderRadius: 9,
 
-    backgroundColor: colors.red,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -191,7 +255,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingBottom: 18,
 
-    borderRadius: 9,
+    borderRadius: 7,
     backgroundColor: colors.background100,
 
     shadowColor: '#000',
@@ -259,6 +323,7 @@ export const styles = StyleSheet.create({
 
   detailsImage: {
     width: '33%',
+    margin: 14,
     aspectRatio: 2 / 3,
     resizeMode: 'cover',
   },
@@ -341,26 +406,24 @@ export const styles = StyleSheet.create({
 
   btnAdd: {
     backgroundColor: colors.primary,
-    borderRadius: 100,
-
-    padding: 10,
-
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 11,
+    paddingHorizontal: 18,
+    borderRadius: 8,
   },
 
   btnAddText: {
     color: colors.text,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
-
   errorText: {
     color: colors.text,
     fontSize: 18,
     textAlign: 'center',
   },
-
+  pressed: {
+    opacity: 0.75,
+  },
   seconds: {
     backgroundColor: colors.background100,
     width: 80,
@@ -413,6 +476,19 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
   },
-  footer: { alignItems: 'center', justifyContent: 'center', paddingVertical: 16 },
-  footerText: { fontSize: 14, color: '#adb5bd' },
+  footer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+  },
+
+  footerText: {
+    color: colors.textMuted,
+    fontSize: 13,
+  },
+
+  footerBrand: {
+    color: colors.primary,
+    fontWeight: '700',
+  },
 })

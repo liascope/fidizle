@@ -153,7 +153,7 @@ export default function SelectedMovie({
         <View style={styles.rating}>
           {!isWatched ? (
             <>
-              <StarRating maxRating={10} size={24} onSetRating={setUserRating} />
+              <StarRating maxRating={10} color="#FFD700" onSetRating={setUserRating} />
 
               {userRating > 0 && (
                 <Pressable style={styles.btnAdd} onPress={handleAdd}>
