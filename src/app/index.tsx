@@ -14,6 +14,7 @@ import Loader from './components/Loader'
 import Error from './components/Error'
 import { WatchedMovie } from './components/WatchedSummary'
 import Footer from './components/Footer'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('')
@@ -36,7 +37,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={['#090909', '#2b0404', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.container}>
       <HomeHeader>
         <Search query={query} setQuery={setQuery}></Search>
         <Text>
@@ -61,6 +62,6 @@ export default function HomeScreen() {
         </Box>
       </View>
       <Footer />
-    </View>
+    </LinearGradient>
   )
 }

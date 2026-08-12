@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native'
 export const colors = {
   // Brand
   primary: '#E50914',
-  primaryLight: '#FF1A25',
-  primaryDark: '#B20710',
+  primaryDark: '#7e0d13',
 
   // Text
   text: '#F5F5F5',
@@ -85,7 +84,7 @@ export const styles = StyleSheet.create({
   logoTitle: {
     fontSize: 25,
     fontWeight: '800',
-    color: colors.primaryLight,
+    color: colors.primary,
   },
 
   search: {
