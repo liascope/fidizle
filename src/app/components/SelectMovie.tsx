@@ -3,6 +3,7 @@ import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { colors, styles } from '../styles/global'
 import StarRating from './StarRating'
 import Ionicons from '@expo/vector-icons/Ionicons'
+
 type MovieDetails = {
   Title: string
   Year: string

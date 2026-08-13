@@ -1,8 +1,8 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
-import { styles } from '../styles/global'
+import { styles, colors } from '../styles/global'
 import { WatchedMovie } from './WatchedSummary'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { colors } from '../styles/global'
+
 export default function WatchedMoviesList({ watched, handleDeleteWatched }: { watched: WatchedMovie[]; handleDeleteWatched: (id: string) => void }) {
   return (
     <FlatList

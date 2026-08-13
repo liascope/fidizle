@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native'
 import { styles, colors } from '../styles/global'
 import Ionicons from '@expo/vector-icons/Ionicons'
+
 function average(arr: number[]): number {
   if (arr.length === 0) return 0
 

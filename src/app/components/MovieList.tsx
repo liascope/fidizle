@@ -1,6 +1,7 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { styles, colors } from '../styles/global'
 import Ionicons from '@expo/vector-icons/Ionicons'
+
 type Movie = {
   imdbID: string
   Title: string
