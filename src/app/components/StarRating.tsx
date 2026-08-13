@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 type StarRatingProps = {
   maxRating?: number
@@ -17,7 +18,7 @@ type StarProps = {
   size: number
 }
 
-export default function StarRating({ maxRating = 5, defaultRating = 0, color = '#fcc416', size = 30, messages = [], onSetRating }: StarRatingProps) {
+export default function StarRating({ maxRating = 5, defaultRating = 0, color = '#fcc416', size = 24, messages = [], onSetRating }: StarRatingProps) {
   const [rating, setRating] = useState(defaultRating)
 
   function handleRating(value: number) {
@@ -67,16 +68,7 @@ function Star({ onRate, full, color, size }: StarProps) {
         },
       ]}
     >
-      <Text
-        style={{
-          color: color,
-          fontSize: size,
-          lineHeight: size,
-          textAlign: 'center',
-        }}
-      >
-        {full ? '★' : '☆'}
-      </Text>
+      <Ionicons name={full ? 'star' : 'star-outline'} size={size} color={color} />
     </Pressable>
   )
 }

@@ -1,7 +1,8 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { styles } from '../styles/global'
 import { WatchedMovie } from './WatchedSummary'
-
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { colors } from '../styles/global'
 export default function WatchedMoviesList({ watched, handleDeleteWatched }: { watched: WatchedMovie[]; handleDeleteWatched: (id: string) => void }) {
   return (
     <FlatList
@@ -16,27 +17,24 @@ export default function WatchedMoviesList({ watched, handleDeleteWatched }: { wa
 
             <View style={styles.movieStats}>
               <View style={styles.movieStat}>
-                <Text>⭐️</Text>
+                <Ionicons name="stats-chart-outline" size={20} color={colors.textDark} />
                 <Text style={styles.movieStatText}>{movie.imdbRating}</Text>
               </View>
 
               <View style={styles.movieStat}>
-                <Text>🌟</Text>
+                <Ionicons name="star" size={20} color={'#fcc416'} />
                 <Text style={styles.movieStatText}>{movie.userRating}</Text>
               </View>
 
               <View style={styles.movieStat}>
-                <Text>⏳</Text>
+                <Ionicons name="hourglass-outline" size={20} color={colors.textDark} />
                 <Text style={styles.movieStatText}>{movie.runtime} min</Text>
               </View>
             </View>
           </View>
 
-          <Pressable
-            style={({ pressed }) => [styles.btnDelete, pressed && styles.btnDeletePressed]}
-            onPress={() => handleDeleteWatched(movie.imdbID)}
-          >
-            <Text style={styles.btnDeleteText}>×</Text>
+          <Pressable style={({ pressed }) => [pressed && styles.btnDeletePressed]} onPress={() => handleDeleteWatched(movie.imdbID)}>
+            <Ionicons name="remove-circle-outline" size={24} color={colors.primaryDark} />
           </Pressable>
         </View>
       )}

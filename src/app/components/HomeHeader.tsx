@@ -12,7 +12,6 @@ export default function HomeHeader({ children }: { children: React.ReactNode }) 
         ))}
       </View>
 
-      {/* Header-Inhalt */}
       <View style={styles.navBarContent}>
         <View style={styles.logo}>
           <Text style={styles.logoIcon}>🎬</Text>

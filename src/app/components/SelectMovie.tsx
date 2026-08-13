@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
-import { styles } from '../styles/global'
+import { colors, styles } from '../styles/global'
 import StarRating from './StarRating'
-
+import Ionicons from '@expo/vector-icons/Ionicons'
 type MovieDetails = {
   Title: string
   Year: string
@@ -128,7 +128,7 @@ export default function SelectedMovie({
     <ScrollView style={styles.details}>
       <View style={styles.detailsHeader}>
         <Pressable style={styles.btnBack} onPress={handleCloseId}>
-          <Text style={styles.btnBackText}>←</Text>
+          <Ionicons name="chevron-back" size={16} />
         </Pressable>
 
         <Image source={{ uri: poster }} style={styles.detailsImage} />
@@ -143,7 +143,7 @@ export default function SelectedMovie({
           <Text style={styles.detailsText}>{genre}</Text>
 
           <View style={styles.detailsInfo}>
-            <Text>⭐</Text>
+            <Ionicons name="stats-chart" size={20} color={colors.textDark} />
             <Text style={styles.detailsText}>{imdbRating} IMDb rating</Text>
           </View>
         </View>
@@ -162,13 +162,19 @@ export default function SelectedMovie({
               )}
             </>
           ) : (
-            <Text style={styles.detailsText}>You rated the movie with {watchedUserRating} ⭐</Text>
+            <Text style={styles.detailsText}>
+              You rated the movie with {watchedUserRating} <Ionicons name="star" size={16} color={'#fcc416'} />
+            </Text>
           )}
         </View>
 
         <Text style={styles.detailsText}>{plot}</Text>
 
-        {awards !== 'N/A' && <Text style={styles.detailsText}>🏆 {awards}</Text>}
+        {awards !== 'N/A' && (
+          <Text style={styles.detailsText}>
+            <Ionicons name="trophy" size={16} /> {awards}
+          </Text>
+        )}
 
         <Text style={styles.detailsText}>Starring {actors}</Text>
 

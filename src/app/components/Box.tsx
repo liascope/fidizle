@@ -7,9 +7,9 @@ export default function Box({ children }: { children: React.ReactNode }) {
 
   return (
     <View style={styles.box}>
-      <Pressable style={styles.btnToggle} onPress={() => setOpen((open) => !open)}>
+      {/* <Pressable style={styles.btnToggle} onPress={() => setOpen((open) => !open)}>
         <Text style={styles.btnToggleText}>{isOpen ? '–' : '+'}</Text>
-      </Pressable>
+      </Pressable> */}
       <> {isOpen && children}</>
     </View>
   )

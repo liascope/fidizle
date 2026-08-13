@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
-import { styles } from '../styles/global'
-
+import { styles, colors } from '../styles/global'
+import Ionicons from '@expo/vector-icons/Ionicons'
 function average(arr: number[]): number {
   if (arr.length === 0) return 0
 
@@ -33,22 +33,22 @@ export default function WatchedSummary({ watched }: { watched: WatchedMovie[] })
 
       <View style={styles.summaryContent}>
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryIcon}>#️⃣</Text>
+          <Ionicons name="film" size={22} color={colors.primaryDark} />
           <Text style={styles.summaryText}>{watched.length} movies</Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryIcon}>⭐️</Text>
+          <Ionicons name="stats-chart" size={20} color={colors.textDark} />
           <Text style={styles.summaryText}>{avgImdbRating.toFixed(2)}</Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryIcon}>🌟</Text>
+          <Ionicons name="star" size={20} color={'#fcc416'} />
           <Text style={styles.summaryText}>{avgUserRating.toFixed(2)}</Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryIcon}>⏳</Text>
+          <Ionicons name="hourglass-outline" size={20} color={colors.textDark} />
           <Text style={styles.summaryText}>{avgRuntime.toFixed(0)} min</Text>
         </View>
       </View>

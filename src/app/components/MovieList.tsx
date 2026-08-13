@@ -1,6 +1,6 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
-import { styles } from '../styles/global'
-
+import { styles, colors } from '../styles/global'
+import Ionicons from '@expo/vector-icons/Ionicons'
 type Movie = {
   imdbID: string
   Title: string
@@ -21,8 +21,10 @@ export default function MovieList({ movies, handleSelectedMovie }: { movies: Mov
             <Text style={styles.listTitle}>{movie.Title}</Text>
             <View style={styles.listInfo}>
               <View style={styles.listInfoItem}>
-                <Text>🗓</Text>
-                <Text style={styles.listText}>{movie.Year}</Text>
+                <Ionicons name="calendar-outline" size={18} color={colors.textMuted} />
+                <Text style={styles.listText}>
+                  {movie.Year} ({movie.Type})
+                </Text>
               </View>
             </View>
           </View>
