@@ -8,10 +8,12 @@ function average(arr: number[]): number {
   return arr.reduce((acc, cur) => acc + cur, 0) / arr.length
 }
 
+export type MediaType = 'movie' | 'series'
+
 export type WatchedMovie = {
   imdbID: string
   title: string
-  type: string
+  type: MediaType
   year: string
   writer: string
   poster: string
@@ -21,36 +23,48 @@ export type WatchedMovie = {
   userRating: number
   countRatingDecisions: number
 }
-export default function WatchedSummary({ watched }: { watched: WatchedMovie[] }) {
+
+export default function WatchedSummary({ watched, type }: { watched: WatchedMovie[]; type: MediaType }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating))
 
   const avgUserRating = average(watched.map((movie) => movie.userRating))
 
   const avgRuntime = average(watched.map((movie) => movie.runtime))
 
+  const avgSeasons = average(watched.filter((movie) => movie.seasons).map((movie) => Number(movie.seasons)))
+
+  const isSeries = type === 'series'
+
   return (
     <View style={styles.summary}>
-      <Text style={styles.summaryTitle}>Movies you watched</Text>
+      <Text style={styles.summaryTitle}>{isSeries ? 'Series you watched' : 'Movies you watched'}</Text>
 
       <View style={styles.summaryContent}>
         <View style={styles.summaryItem}>
-          <Ionicons name="film" size={22} color={colors.primaryDark} />
-          <Text style={styles.summaryText}>{watched.length} movies</Text>
+          <Ionicons name={isSeries ? 'tv' : 'film'} size={22} color={colors.primaryDark} />
+
+          <Text style={styles.summaryText}>
+            {watched.length} {isSeries ? 'series' : 'movies'}
+          </Text>
         </View>
 
         <View style={styles.summaryItem}>
           <Ionicons name="stats-chart" size={20} color={colors.textDark} />
-          <Text style={styles.summaryText}>{avgImdbRating.toFixed(2)}</Text>
+
+          <Text style={styles.summaryText}>IMDb {avgImdbRating.toFixed(2)}</Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Ionicons name="star" size={20} color={'#fcc416'} />
+          <Ionicons name="star" size={20} color="#fcc416" />
+
           <Text style={styles.summaryText}>{avgUserRating.toFixed(2)}</Text>
         </View>
 
+        {/* Movie → Runtime / Series → Seasons */}
         <View style={styles.summaryItem}>
-          <Ionicons name="hourglass-outline" size={20} color={colors.textDark} />
-          <Text style={styles.summaryText}>{avgRuntime.toFixed(0)} min</Text>
+          <Ionicons name={isSeries ? 'albums-outline' : 'hourglass-outline'} size={20} color={colors.textDark} />
+
+          <Text style={styles.summaryText}>{isSeries ? `${avgSeasons.toFixed(0)} seasons` : `${avgRuntime.toFixed(0)} min`}</Text>
         </View>
       </View>
     </View>

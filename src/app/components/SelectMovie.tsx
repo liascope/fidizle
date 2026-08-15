@@ -45,7 +45,6 @@ export default function SelectedMovie({
   }, [userRating])
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId)
-
   const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating
 
   const {
@@ -178,7 +177,6 @@ export default function SelectedMovie({
         )}
 
         <Text style={styles.detailsText}>Starring {actors}</Text>
-
         <Text style={styles.detailsText}>{director === 'N/A' ? `Written by ${writer}` : `Directed by ${director}`}</Text>
       </View>
     </ScrollView>
