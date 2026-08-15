@@ -86,7 +86,34 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     color: colors.primary,
   },
+  navigation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
 
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+  },
+
+  navButtonActive: {
+    backgroundColor: '#380f0f',
+  },
+
+  navText: {
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
+  navTextActive: {
+    color: colors.primary,
+  },
   search: {
     flex: 1,
     maxWidth: 420,
@@ -110,6 +137,13 @@ export const styles = StyleSheet.create({
   results: {
     color: colors.textDark,
     fontSize: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 'auto',
+    height: 10,
+    textAlign: 'center',
+    padding: 10,
+    margin: 10,
   },
 
   numResults: {
