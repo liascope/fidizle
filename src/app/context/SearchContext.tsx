@@ -6,6 +6,7 @@ type SearchContextType = {
   setQuery: (query: string) => void
   selectedId: string | null
   setSelectedId: Dispatch<SetStateAction<string | null>>
+  setSearchQuery: (value: string) => void
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined)
@@ -14,7 +15,11 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
-  return <SearchContext.Provider value={{ query, setQuery, selectedId, setSelectedId }}>{children}</SearchContext.Provider>
+  const setSearchQuery = (value: string) => {
+    setQuery(value)
+    setSelectedId(null)
+  }
+  return <SearchContext.Provider value={{ query, setQuery, selectedId, setSelectedId, setSearchQuery }}>{children}</SearchContext.Provider>
 }
 
 export function useSearch() {
