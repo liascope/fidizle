@@ -1,9 +1,11 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
+import { useState } from 'react'
 import { styles, colors } from '../styles/global'
 import { WatchedMovie } from './WatchedSummary'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import WatchedSummary from './WatchedSummary'
+import Toast from './Toast'
 
 type WatchedListProps = {
   type: 'movie' | 'series'
@@ -13,9 +15,12 @@ export default function WatchedList({ type }: WatchedListProps) {
   const { movies, series, setWatched } = useLocalStorage<WatchedMovie>([], 'watched')
 
   const watched = type === 'series' ? series : movies
-
+  const [toastVisible, setToastVisible] = useState(false)
+  const [toastKey, setToastKey] = useState(0)
   function handleDeleteWatched(id: string) {
     setWatched((w) => w.filter((m) => m.imdbID !== id))
+    setToastKey((key) => key + 1)
+    setToastVisible(true)
   }
 
   return (
@@ -48,7 +53,6 @@ export default function WatchedList({ type }: WatchedListProps) {
                 </View>
               </View>
             </View>
-
             {/* Info */}
             <View style={styles.movieInfo}>
               <Text style={styles.movieTitle} numberOfLines={2}>
@@ -60,6 +64,7 @@ export default function WatchedList({ type }: WatchedListProps) {
               >
                 <Ionicons name="remove-circle-outline" size={22} color={colors.primaryDark} />
               </Pressable>
+
               <View style={styles.movieStats}>
                 {/* IMDb */}
                 <View style={styles.movieStat}>
@@ -86,6 +91,7 @@ export default function WatchedList({ type }: WatchedListProps) {
           </View>
         )}
       />
+      <Toast key={toastKey} type="removed" visible={toastVisible} />
     </>
   )
 }

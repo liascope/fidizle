@@ -4,6 +4,7 @@ import { styles, colors } from '../styles/global'
 import StarRating from './StarRating'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useOmdb } from '../hooks/useOmdb'
+import Toast from './Toast'
 
 type MovieDetails = {
   Title: string
@@ -34,7 +35,7 @@ export default function SelectedMovie({
   watched: any[]
 }) {
   const [userRating, setUserRating] = useState(0)
-
+  const [toastVisible, setToastVisible] = useState(false)
   const countRef = useRef(0)
 
   const { movie, isLoading, error } = useOmdb({
@@ -86,6 +87,7 @@ export default function SelectedMovie({
     }
 
     handleAddWatchedMovie(newMovie)
+    setToastVisible(true)
   }
 
   if (isLoading) {
@@ -110,9 +112,7 @@ export default function SelectedMovie({
         <Pressable style={styles.btnBack} onPress={handleCloseId}>
           <Ionicons name="chevron-down" size={16} />
         </Pressable>
-
         <Image source={{ uri: poster }} style={styles.detailsImage} />
-
         <View style={styles.detailsOverview}>
           <Text style={styles.detailsTitle}>{title}</Text>
 
@@ -128,6 +128,7 @@ export default function SelectedMovie({
             <Text style={styles.detailsText}>{imdbRating} IMDb rating</Text>
           </View>
         </View>
+        <Toast type="success" visible={toastVisible} />
       </View>
 
       <View style={styles.detailsSection}>
@@ -138,7 +139,8 @@ export default function SelectedMovie({
 
               {userRating > 0 && (
                 <Pressable style={styles.btnAdd} onPress={handleAdd}>
-                  <Text style={styles.btnAddText}>+ Add to List</Text>
+                  <Ionicons name="add" size={16} color={colors.text} />
+                  <Text style={styles.btnAddText}>Add to List</Text>
                 </Pressable>
               )}
             </>
