@@ -29,11 +29,12 @@ export const styles = StyleSheet.create({
   navBar: {
     height: 110,
     borderRadius: 10,
-    overflow: 'hidden',
     position: 'relative',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#333',
+    zIndex: 1000,
+    elevation: 1000,
   },
 
   navBarContent: {
@@ -47,7 +48,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#111111',
-    borderRadius: 12,
+    borderRadius: 100,
     padding: 4,
     borderWidth: 1,
     borderColor: '#2a2a2a',
@@ -61,7 +62,7 @@ export const styles = StyleSheet.create({
     minWidth: 105,
     paddingVertical: 9,
     paddingHorizontal: 16,
-    borderRadius: 9,
+    borderRadius: 100,
   },
 
   navButtonActive: {
@@ -130,21 +131,16 @@ export const styles = StyleSheet.create({
   },
 
   search: {
-    flex: 1,
-    maxWidth: 420,
+    width: '60%',
     marginHorizontal: 16,
-
     height: 42,
     paddingHorizontal: 14,
-
-    backgroundColor: colors.background500,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 8,
-
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 100,
     color: colors.text,
     fontSize: 16,
   },
+
   searchPlaceholder: {
     color: colors.textDark,
   },
@@ -698,17 +694,38 @@ export const styles = StyleSheet.create({
   },
 
   btnAdd: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+
     backgroundColor: colors.primary,
-    paddingVertical: 11,
+
+    paddingVertical: 10,
     paddingHorizontal: 18,
-    borderRadius: 8,
+
+    borderRadius: 100,
+
+    alignSelf: 'flex-start',
+
+    shadowColor: colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+
+    elevation: 4,
   },
 
   btnAddText: {
     color: colors.text,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
+    letterSpacing: 0.2,
   },
+
   errorText: {
     color: colors.text,
     fontSize: 18,
@@ -783,5 +800,98 @@ export const styles = StyleSheet.create({
   footerBrand: {
     color: colors.primary,
     fontWeight: '700',
+  },
+
+  mobileMenu: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+
+    padding: 3,
+
+    backgroundColor: '#111111',
+
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: '#2a2a2a',
+  },
+
+  mobileMenuButton: {
+    width: 38,
+    height: 36,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 100,
+  },
+
+  mobileMenuButtonActive: {
+    backgroundColor: '#3a1012',
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  toast: {
+    position: 'absolute',
+    bottom: 24,
+    left: 20,
+    right: 20,
+
+    minHeight: 52,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+
+    backgroundColor: '#151515',
+
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.10)',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+
+    elevation: 12,
+    zIndex: 9999,
+  },
+
+  toastIcon: {
+    width: 30,
+    height: 30,
+
+    borderRadius: 100,
+
+    backgroundColor: 'rgba(229, 9, 20, 0.15)',
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    marginRight: 11,
+
+    borderWidth: 1,
+    borderColor: 'rgba(229, 9, 20, 0.25)',
+  },
+
+  toastIconText: {
+    color: colors.primary,
+    fontSize: 15,
+    fontWeight: '800',
+  },
+
+  toastText: {
+    flex: 1,
+
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: '600',
+    letterSpacing: 0.1,
   },
 })

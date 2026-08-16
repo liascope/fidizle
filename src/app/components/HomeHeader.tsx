@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View, useWindowDimensions } from 'react-native'
 import { usePathname, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { styles, colors } from '../styles/global'
@@ -7,6 +7,12 @@ import { LinearGradient } from 'expo-linear-gradient'
 export default function HomeHeader({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
+  const { width } = useWindowDimensions()
+  const isMobile = width < 700
+
+  function handleNavigate(path: '/movies' | '/series') {
+    router.push(path)
+  }
 
   return (
     <LinearGradient colors={['#080808', '#4A1518', '#080808']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.navBar}>
@@ -17,6 +23,7 @@ export default function HomeHeader({ children }: { children: React.ReactNode }) 
       </View>
 
       <View style={styles.navBarContent}>
+        {/* Logo */}
         <Pressable onPress={() => router.push('/')}>
           <View style={styles.logo}>
             <Text style={styles.logoIcon}>🎬</Text>
@@ -25,19 +32,38 @@ export default function HomeHeader({ children }: { children: React.ReactNode }) 
         </Pressable>
 
         {children}
-        <View style={styles.navigation}>
-          <Pressable onPress={() => router.push('/movies')} style={[styles.navButton, pathname === '/movies' && styles.navButtonActive]}>
-            <Ionicons name="film-outline" size={18} color={pathname === '/movies' ? colors.primary : colors.text} />
 
-            <Text style={[styles.navText, pathname === '/movies' && styles.navTextActive]}>Movies</Text>
-          </Pressable>
+        {isMobile ? (
+          <View style={styles.mobileMenu}>
+            <Pressable
+              style={[styles.mobileMenuButton, pathname === '/movies' && styles.mobileMenuButtonActive]}
+              onPress={() => handleNavigate('/movies')}
+            >
+              <Ionicons name="film-outline" size={20} color={pathname === '/movies' ? colors.primary : colors.text} />
+            </Pressable>
 
-          <Pressable onPress={() => router.push('/series')} style={[styles.navButton, pathname === '/series' && styles.navButtonActive]}>
-            <Ionicons name="tv-outline" size={18} color={pathname === '/series' ? colors.primary : colors.text} />
+            <Pressable
+              style={[styles.mobileMenuButton, pathname === '/series' && styles.mobileMenuButtonActive]}
+              onPress={() => handleNavigate('/series')}
+            >
+              <Ionicons name="tv-outline" size={20} color={pathname === '/series' ? colors.primary : colors.text} />
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.navigation}>
+            <Pressable onPress={() => router.push('/movies')} style={[styles.navButton, pathname === '/movies' && styles.navButtonActive]}>
+              <Ionicons name="film-outline" size={18} color={pathname === '/movies' ? colors.primary : colors.text} />
 
-            <Text style={[styles.navText, pathname === '/series' && styles.navTextActive]}>Series</Text>
-          </Pressable>
-        </View>
+              <Text style={[styles.navText, pathname === '/movies' && styles.navTextActive]}>Movies</Text>
+            </Pressable>
+
+            <Pressable onPress={() => router.push('/series')} style={[styles.navButton, pathname === '/series' && styles.navButtonActive]}>
+              <Ionicons name="tv-outline" size={18} color={pathname === '/series' ? colors.primary : colors.text} />
+
+              <Text style={[styles.navText, pathname === '/series' && styles.navTextActive]}>Series</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
 
       <View style={[styles.filmHoles, styles.filmHolesBottom]}>
