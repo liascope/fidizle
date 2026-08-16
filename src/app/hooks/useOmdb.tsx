@@ -28,7 +28,7 @@ export function useOmdb({ query, id }: UseOmdbProps) {
         })
 
         if (!res.ok) {
-          throw new Error('Something went wrong with fetching data')
+          throw new Error('Something went wrong.')
         }
 
         const data = await res.json()
@@ -51,16 +51,14 @@ export function useOmdb({ query, id }: UseOmdbProps) {
       }
     }
 
-    if (id) {
-      fetchMovies()
-    } else if (query?.trim()) {
-      fetchMovies()
-    } else {
+    if (!id && (!query || query.trim().length < 3)) {
       setMovies([])
-      setMovie(null)
       setError('')
       setIsLoading(false)
+      return
     }
+
+    fetchMovies()
 
     return () => {
       controller.abort()

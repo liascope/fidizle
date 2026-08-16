@@ -26,7 +26,15 @@ export function useLocalStorage<T extends { type: string }>(initialState: T[], k
   useEffect(() => {
     if (!isLoaded) return
 
-    AsyncStorage.setItem(key, JSON.stringify(value))
+    async function save() {
+      try {
+        await AsyncStorage.setItem(key, JSON.stringify(value))
+      } catch (error) {
+        console.error('Failed to save storage:', error)
+      }
+    }
+
+    save()
   }, [value, key, isLoaded])
 
   const movies = value.filter((item) => item.type === 'movie')

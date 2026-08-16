@@ -1,13 +1,14 @@
 import MovieList from './MovieList'
 import SelectedMovie from './SelectMovie'
 import Loader from './Loader'
-import { styles } from '../styles/global'
+import { styles, colors } from '../styles/global'
 import { Text, View, Animated, Dimensions } from 'react-native'
 import { useSearch } from '../context/SearchContext'
 import { useRef, useEffect } from 'react'
 import { useOmdb } from '../hooks/useOmdb'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { WatchedMovie } from './WatchedSummary'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export default function SearchResults({ query }: { query: string }) {
   const screenHeight = Dimensions.get('window').height
@@ -16,6 +17,7 @@ export default function SearchResults({ query }: { query: string }) {
   const { watched, setWatched } = useLocalStorage<WatchedMovie>([], 'watched')
 
   const { movies, isLoading, error } = useOmdb({ query })
+
   useEffect(() => {
     Animated.timing(selectedMovieY, {
       toValue: selectedId ? 0 : screenHeight,
@@ -36,10 +38,36 @@ export default function SearchResults({ query }: { query: string }) {
     setWatched((w) => [...w, movie])
   }
 
+  const searchOpacity = useRef(new Animated.Value(0.4)).current
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(searchOpacity, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(searchOpacity, {
+          toValue: 0.4,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start()
+  }, [query])
+
   return (
     <View style={styles.searchSection}>
       <View style={styles.resultsHeader}>
-        <Text style={styles.resultsTitle}>Search results</Text>
+        <Text style={styles.resultsTitle}>
+          Search results{'  '}
+          {query.trim().length > 0 && query.trim().length < 3 && (
+            <Animated.View style={{ opacity: searchOpacity }}>
+              <Ionicons name="search" size={22} color={colors.primary} />
+            </Animated.View>
+          )}
+        </Text>
         <Text style={styles.results}>
           {!error && movies?.length > 0 ? (
             <>
@@ -49,9 +77,7 @@ export default function SearchResults({ query }: { query: string }) {
             <Text style={styles.errorText}>{error && error}</Text>
           )}
         </Text>
-
         {isLoading && <Loader />}
-
         {!isLoading && !error && <MovieList movies={movies} handleSelectedMovie={handleSelectedMovie} scrollEnabled={false} />}
       </View>
 
