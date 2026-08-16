@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
-import { colors, styles } from '../styles/global'
+import { styles, colors } from '../styles/global'
 import StarRating from './StarRating'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { useOmdb } from '../hooks/useOmdb'
 
 type MovieDetails = {
   Title: string
@@ -20,7 +21,7 @@ type MovieDetails = {
   Writer: string
   Genre: string
 }
-const apiKey = process.env.EXPO_PUBLIC_OMDB_API_KEY
+
 export default function SelectedMovie({
   selectedId,
   handleCloseId,
@@ -32,11 +33,13 @@ export default function SelectedMovie({
   handleAddWatchedMovie: (movie: any) => void
   watched: any[]
 }) {
-  const [movie, setMovie] = useState<MovieDetails | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
   const [userRating, setUserRating] = useState(0)
 
   const countRef = useRef(0)
+
+  const { movie, isLoading, error } = useOmdb({
+    id: selectedId,
+  })
 
   useEffect(() => {
     if (userRating) {
@@ -44,7 +47,8 @@ export default function SelectedMovie({
     }
   }, [userRating])
 
-  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId)
+  const isWatched = watched.some((movie) => movie.imdbID === selectedId)
+
   const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating
 
   const {
@@ -62,7 +66,7 @@ export default function SelectedMovie({
     Director: director,
     Writer: writer,
     Genre: genre,
-  } = movie ?? {}
+  } = (movie as MovieDetails) ?? {}
 
   function handleAdd() {
     const runtimeNumber = runtime ? Number(runtime.split(' ')[0]) : 0
@@ -84,38 +88,6 @@ export default function SelectedMovie({
     handleAddWatchedMovie(newMovie)
   }
 
-  useEffect(() => {
-    async function getMovieDetails() {
-      try {
-        setIsLoading(true)
-
-        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`)
-
-        if (!res.ok) {
-          throw new Error('Something went wrong with fetching movies')
-        }
-
-        const data = await res.json()
-
-        if (data.Response === 'False') {
-          throw new Error('Movie not found')
-        }
-
-        setMovie(data)
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error(err.message)
-        }
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    if (selectedId) {
-      getMovieDetails()
-    }
-  }, [selectedId])
-
   if (isLoading) {
     return (
       <View style={styles.details}>
@@ -124,11 +96,19 @@ export default function SelectedMovie({
     )
   }
 
+  if (error) {
+    return (
+      <View style={styles.details}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    )
+  }
+
   return (
     <ScrollView style={styles.details}>
       <View style={styles.detailsHeader}>
         <Pressable style={styles.btnBack} onPress={handleCloseId}>
-          <Ionicons name="chevron-back" size={16} />
+          <Ionicons name="chevron-down" size={16} />
         </Pressable>
 
         <Image source={{ uri: poster }} style={styles.detailsImage} />
@@ -144,6 +124,7 @@ export default function SelectedMovie({
 
           <View style={styles.detailsInfo}>
             <Ionicons name="stats-chart" size={20} color={colors.textDark} />
+
             <Text style={styles.detailsText}>{imdbRating} IMDb rating</Text>
           </View>
         </View>
@@ -163,7 +144,7 @@ export default function SelectedMovie({
             </>
           ) : (
             <Text style={styles.detailsText}>
-              You rated the movie with {watchedUserRating} <Ionicons name="star" size={16} color={'#fcc416'} />
+              You rated the movie with {watchedUserRating} <Ionicons name="star" size={16} color="#fcc416" />
             </Text>
           )}
         </View>
@@ -177,6 +158,7 @@ export default function SelectedMovie({
         )}
 
         <Text style={styles.detailsText}>Starring {actors}</Text>
+
         <Text style={styles.detailsText}>{director === 'N/A' ? `Written by ${writer}` : `Directed by ${director}`}</Text>
       </View>
     </ScrollView>

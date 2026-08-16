@@ -24,35 +24,65 @@ export default function WatchedList({ type }: WatchedListProps) {
       <FlatList
         data={watched}
         keyExtractor={(movie) => movie.imdbID}
+        numColumns={3}
+        columnWrapperStyle={styles.movieGrid}
+        contentContainerStyle={styles.movieGridContainer}
         renderItem={({ item: movie }) => (
-          <View style={styles.listItem}>
-            <Image source={{ uri: movie.poster }} style={styles.listImage} />
-
-            <View style={styles.movieContent}>
-              <Text style={styles.movieTitle}>{movie.title}</Text>
-
-              <View style={styles.movieStats}>
-                <View style={styles.movieStat}>
-                  <Ionicons name="stats-chart-outline" size={20} color={colors.textDark} />
-                  <Text style={styles.movieStatText}>{movie.imdbRating}</Text>
+          <View style={styles.movieCard}>
+            {/* Poster */}
+            <View style={styles.posterContent}>
+              {/* Film perforation */}
+              <View style={styles.filmStrip}>
+                <View style={styles.filmHoless}>
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <View key={i} style={styles.filmHolee} />
+                  ))}
                 </View>
 
-                <View style={styles.movieStat}>
-                  <Ionicons name="star" size={20} color={'#fcc416'} />
-                  <Text style={styles.movieStatText}>{movie.userRating}</Text>
-                </View>
+                <Image source={{ uri: movie.poster }} style={styles.moviePoster} />
 
-                <View style={styles.movieStat}>
-                  <Ionicons name={type === 'series' ? 'albums-outline' : 'hourglass-outline'} size={20} color={colors.textDark} />
-
-                  <Text style={styles.summaryText}>{type === 'series' ? `${movie.seasons} seasons` : `${movie.runtime} min`}</Text>
+                <View style={styles.filmHoless}>
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <View key={i} style={styles.filmHolee} />
+                  ))}
                 </View>
               </View>
             </View>
 
-            <Pressable style={({ pressed }) => [pressed && styles.btnDeletePressed]} onPress={() => handleDeleteWatched(movie.imdbID)}>
-              <Ionicons name="remove-circle-outline" size={24} color={colors.primaryDark} />
-            </Pressable>
+            {/* Info */}
+            <View style={styles.movieInfo}>
+              <Text style={styles.movieTitle} numberOfLines={2}>
+                {movie.title}
+              </Text>
+              <Pressable
+                style={({ pressed }) => [styles.deleteButton, pressed && styles.btnDeletePressed]}
+                onPress={() => handleDeleteWatched(movie.imdbID)}
+              >
+                <Ionicons name="remove-circle-outline" size={22} color={colors.primaryDark} />
+              </Pressable>
+              <View style={styles.movieStats}>
+                {/* IMDb */}
+                <View style={styles.movieStat}>
+                  <Ionicons name="stats-chart-outline" size={16} color={colors.textDark} />
+
+                  <Text style={styles.movieStatText}>{movie.imdbRating}</Text>
+                </View>
+
+                {/* Own rating */}
+                <View style={styles.movieStat}>
+                  <Ionicons name="star" size={16} color="#fcc416" />
+
+                  <Text style={styles.movieStatText}>{movie.userRating}</Text>
+                </View>
+
+                {/* Runtime / Seasons */}
+                <View style={styles.movieStat}>
+                  <Ionicons name={type === 'series' ? 'albums-outline' : 'hourglass-outline'} size={16} color={colors.textDark} />
+
+                  <Text style={styles.movieStatText}>{type === 'series' ? `${movie.seasons} seasons` : `${movie.runtime} min`}</Text>
+                </View>
+              </View>
+            </View>
           </View>
         )}
       />
