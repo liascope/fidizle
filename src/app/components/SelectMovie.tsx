@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Image, Pressable, ScrollView, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
 import { styles, colors } from '../styles/global'
 import StarRating from './StarRating'
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -92,77 +92,127 @@ export default function SelectedMovie({
 
   if (isLoading) {
     return (
-      <View style={styles.details}>
-        <Text style={styles.loader}>LOADING...</Text>
+      <View style={styles.detailsState}>
+        <View style={styles.detailsStateIcon}>
+          <Ionicons name="film-outline" size={28} color={colors.primary} />
+        </View>
+
+        <Text style={styles.detailsStateTitle}>Loading movie...</Text>
+
+        <Text style={styles.detailsStateText}>Getting the movie details for you.</Text>
       </View>
     )
   }
 
-  if (error) {
+  if (error || !movie) {
     return (
-      <View style={styles.details}>
-        <Text style={styles.errorText}>{error}</Text>
+      <View style={styles.detailsState}>
+        <View style={styles.detailsStateIcon}>
+          <Ionicons name="film-outline" size={28} color={colors.primary} />
+        </View>
+
+        <Text style={styles.detailsStateTitle}>Movie not found</Text>
+
+        <Text style={styles.detailsStateText}>We couldn't find any details for this movie.</Text>
+
+        <Pressable style={styles.detailsStateButton} onPress={handleCloseId}>
+          <Text style={styles.detailsStateButtonText}>Go back</Text>
+        </Pressable>
       </View>
     )
   }
 
   return (
-    <ScrollView style={styles.details}>
-      <View style={styles.detailsHeader}>
+    <View style={styles.details}>
+      {/* Header */}
+      <View style={styles.detailsTopBar}>
         <Pressable style={styles.btnBack} onPress={handleCloseId}>
-          <Ionicons name="chevron-down" size={16} />
+          <Ionicons name="chevron-down" size={20} color={colors.text} />
         </Pressable>
+
+        <Text style={styles.detailsTopBarTitle}>Movie details</Text>
+      </View>
+
+      {/* Main information */}
+      <View style={styles.detailsMain}>
         <Image source={{ uri: poster }} style={styles.detailsImage} />
+
         <View style={styles.detailsOverview}>
           <Text style={styles.detailsTitle}>{title}</Text>
 
-          <Text style={styles.detailsText}>
-            {released} • {type ? type[0].toUpperCase() + type.slice(1) : ''} • {type === 'series' ? `Seasons ${seasons}` : runtime}
+          <Text style={styles.detailsMeta}>
+            {released} · {type ? type[0].toUpperCase() + type.slice(1) : ''}
+            {' · '}
+            {type === 'series' ? `${seasons} seasons` : runtime}
           </Text>
 
-          <Text style={styles.detailsText}>{genre}</Text>
-
           <View style={styles.detailsInfo}>
-            <Ionicons name="stats-chart" size={20} color={colors.textDark} />
+            <Ionicons name="stats-chart" size={17} color={colors.primary} />
 
-            <Text style={styles.detailsText}>{imdbRating} IMDb rating</Text>
+            <Text style={styles.detailsInfoText}>{imdbRating} IMDb</Text>
           </View>
+
+          <Text style={styles.detailsGenre}>{genre}</Text>
         </View>
-        <Toast type="success" visible={toastVisible} />
       </View>
 
-      <View style={styles.detailsSection}>
-        <View style={styles.rating}>
-          {!isWatched ? (
-            <>
-              <StarRating maxRating={10} color="#FFD700" onSetRating={setUserRating} />
-
-              {userRating > 0 && (
-                <Pressable style={styles.btnAdd} onPress={handleAdd}>
-                  <Ionicons name="add" size={16} color={colors.text} />
-                  <Text style={styles.btnAddText}>Add to List</Text>
-                </Pressable>
-              )}
-            </>
-          ) : (
-            <Text style={styles.detailsText}>
-              You rated the movie with {watchedUserRating} <Ionicons name="star" size={16} color="#fcc416" />
-            </Text>
-          )}
-        </View>
+      {/* Description */}
+      <View style={styles.detailsContent}>
+        <Text style={styles.detailsSectionTitle}>Overview</Text>
 
         <Text style={styles.detailsText}>{plot}</Text>
 
         {awards !== 'N/A' && (
-          <Text style={styles.detailsText}>
-            <Ionicons name="trophy" size={16} /> {awards}
-          </Text>
+          <View style={styles.detailsRow}>
+            <Ionicons name="trophy-outline" size={17} color={colors.primary} />
+
+            <Text style={styles.detailsText}>{awards}</Text>
+          </View>
         )}
 
-        <Text style={styles.detailsText}>Starring {actors}</Text>
+        <View style={styles.detailsCredits}>
+          <Text style={styles.detailsCreditLabel}>Starring</Text>
 
-        <Text style={styles.detailsText}>{director === 'N/A' ? `Written by ${writer}` : `Directed by ${director}`}</Text>
+          <Text style={styles.detailsText}>{actors}</Text>
+        </View>
+
+        <View style={styles.detailsCredits}>
+          <Text style={styles.detailsCreditLabel}>{director === 'N/A' ? 'Written by' : 'Directed by'}</Text>
+
+          <Text style={styles.detailsText}>{director === 'N/A' ? writer : director}</Text>
+        </View>
       </View>
-    </ScrollView>
+
+      {/* Rating */}
+      <View style={styles.rating}>
+        {!isWatched ? (
+          <>
+            <View>
+              <Text style={styles.ratingTitle}>Your rating</Text>
+
+              <Text style={styles.ratingSubtitle}>How would you rate this movie?</Text>
+            </View>
+
+            <StarRating maxRating={10} color="#FFD700" onSetRating={setUserRating} />
+
+            {userRating > 0 && (
+              <Pressable style={styles.btnAdd} onPress={handleAdd}>
+                <Ionicons name="add" size={16} color={colors.text} />
+
+                <Text style={styles.btnAddText}>Add to List</Text>
+              </Pressable>
+            )}
+          </>
+        ) : (
+          <View style={styles.alreadyRated}>
+            <Ionicons name="star" size={18} color="#fcc416" />
+
+            <Text style={styles.detailsText}>You rated this movie {watchedUserRating}/10</Text>
+          </View>
+        )}
+      </View>
+
+      <Toast type="success" visible={toastVisible} />
+    </View>
   )
 }

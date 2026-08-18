@@ -2,7 +2,7 @@ import MovieList from './MovieList'
 import SelectedMovie from './SelectMovie'
 import Loader from './Loader'
 import { styles, colors } from '../styles/global'
-import { Text, View, Animated, Dimensions } from 'react-native'
+import { Text, Animated, Dimensions } from 'react-native'
 import { useSearch } from '../context/SearchContext'
 import { useRef, useEffect } from 'react'
 import { useOmdb } from '../hooks/useOmdb'
@@ -20,7 +20,7 @@ export default function SearchResults({ query }: { query: string }) {
 
   useEffect(() => {
     Animated.timing(selectedMovieY, {
-      toValue: selectedId ? 0 : screenHeight,
+      toValue: selectedId ? 0 : screenHeight * screenHeight,
       duration: 350,
       useNativeDriver: true,
     }).start()
@@ -58,28 +58,27 @@ export default function SearchResults({ query }: { query: string }) {
   }, [query])
 
   return (
-    <View style={styles.searchSection}>
-      <View style={styles.resultsHeader}>
-        <Text style={styles.resultsTitle}>
-          Search results{'  '}
-          {query.trim().length > 0 && query.trim().length < 3 && (
-            <Animated.View style={{ opacity: searchOpacity }}>
-              <Ionicons name="search" size={22} color={colors.primary} />
-            </Animated.View>
-          )}
-        </Text>
-        <Text style={styles.results}>
-          {!error && movies?.length > 0 ? (
-            <>
-              {movies?.length ?? 0} results for <Text style={styles.numResults}>"{query}"</Text>
-            </>
-          ) : (
-            <Text style={styles.errorText}>{error && error}</Text>
-          )}
-        </Text>
-        {isLoading && <Loader />}
-        {!isLoading && !error && <MovieList movies={movies} handleSelectedMovie={handleSelectedMovie} scrollEnabled={false} />}
-      </View>
+    <>
+      <Text style={styles.resultsTitle}>
+        Search results{'  '}
+        {query.trim().length < 3 && (
+          <Animated.View style={{ opacity: searchOpacity }}>
+            <Ionicons name="search" size={22} color={colors.primary} />
+          </Animated.View>
+        )}
+      </Text>
+      <Text style={styles.results}>
+        {!error && movies?.length > 0 ? (
+          <>
+            {movies?.length ?? 0} results for <Text style={styles.numResults}>"{query}"</Text>
+          </>
+        ) : (
+          <Text style={styles.errorText}>{error && error}</Text>
+        )}
+      </Text>
+
+      {isLoading && <Loader />}
+      {!isLoading && !error && <MovieList movies={movies} handleSelectedMovie={handleSelectedMovie} scrollEnabled={false} />}
 
       <Animated.View
         pointerEvents={selectedId ? 'auto' : 'none'}
@@ -94,6 +93,6 @@ export default function SearchResults({ query }: { query: string }) {
           <SelectedMovie handleCloseId={handleCloseId} selectedId={selectedId} handleAddWatchedMovie={handleAddWatchedMovie} watched={watched} />
         )}
       </Animated.View>
-    </View>
+    </>
   )
 }

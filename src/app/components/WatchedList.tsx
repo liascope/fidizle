@@ -1,4 +1,5 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
 import { styles, colors } from '../styles/global'
 import { WatchedMovie } from './WatchedSummary'
@@ -24,46 +25,46 @@ export default function WatchedList({ type }: WatchedListProps) {
   }
 
   return (
-    <>
+    <LinearGradient colors={['#090909', '#260909', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1, padding: 30 }}>
       <WatchedSummary watched={watched} type={type} />
       <FlatList
         data={watched}
         keyExtractor={(movie) => movie.imdbID}
         numColumns={3}
         columnWrapperStyle={styles.movieGrid}
-        contentContainerStyle={styles.movieGridContainer}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item: movie }) => (
           <View style={styles.movieCard}>
             {/* Poster */}
             <View style={styles.posterContent}>
               {/* Film perforation */}
               <View style={styles.filmStrip}>
-                <View style={styles.filmHoless}>
+                <View style={styles.filmHolesCard}>
                   {Array.from({ length: 8 }).map((_, i) => (
-                    <View key={i} style={styles.filmHolee} />
+                    <View key={i} style={styles.filmHoleCard} />
                   ))}
                 </View>
 
                 <Image source={{ uri: movie.poster }} style={styles.moviePoster} />
 
-                <View style={styles.filmHoless}>
+                <View style={styles.filmHolesCard}>
                   {Array.from({ length: 8 }).map((_, i) => (
-                    <View key={i} style={styles.filmHolee} />
+                    <View key={i} style={styles.filmHoleCard} />
                   ))}
                 </View>
               </View>
             </View>
             {/* Info */}
             <View style={styles.movieInfo}>
-              <Text style={styles.movieTitle} numberOfLines={2}>
-                {movie.title}
-              </Text>
-              <Pressable
-                style={({ pressed }) => [styles.deleteButton, pressed && styles.btnDeletePressed]}
-                onPress={() => handleDeleteWatched(movie.imdbID)}
-              >
-                <Ionicons name="remove-circle-outline" size={22} color={colors.primaryDark} />
-              </Pressable>
+              <View style={styles.movieTitleRow}>
+                <Text style={styles.movieTitle} numberOfLines={2}>
+                  {movie.title}
+                </Text>
+
+                <Pressable style={styles.deleteButton} onPress={() => handleDeleteWatched(movie.imdbID)}>
+                  <Ionicons name="remove-circle-outline" size={22} color={colors.primaryDark} />
+                </Pressable>
+              </View>
 
               <View style={styles.movieStats}>
                 {/* IMDb */}
@@ -92,6 +93,6 @@ export default function WatchedList({ type }: WatchedListProps) {
         )}
       />
       <Toast key={toastKey} type="removed" visible={toastVisible} />
-    </>
+    </LinearGradient>
   )
 }

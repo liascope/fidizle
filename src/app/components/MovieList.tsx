@@ -17,14 +17,14 @@ type MovieListProps = {
   scrollEnabled?: boolean
 }
 
-export default function MovieList({ movies, handleSelectedMovie, scrollEnabled = true }: MovieListProps) {
+export default function MovieList({ movies, handleSelectedMovie }: MovieListProps) {
   return (
     <FlatList
       data={movies}
       keyExtractor={(movie) => movie.imdbID}
       numColumns={3}
       columnWrapperStyle={styles.movieGrid}
-      contentContainerStyle={styles.movieGridContainer}
+      contentContainerStyle={{ padding: 30 }}
       showsVerticalScrollIndicator={false}
       renderItem={({ item: movie }) => (
         <Pressable style={({ pressed }) => [styles.movieCard, pressed && styles.movieCardPressed]} onPress={() => handleSelectedMovie(movie.imdbID)}>
@@ -32,9 +32,9 @@ export default function MovieList({ movies, handleSelectedMovie, scrollEnabled =
           <View style={styles.posterContent}>
             <View style={styles.filmStrip}>
               {/* Left Film Border */}
-              <View style={styles.filmHoless}>
+              <View style={styles.filmHolesCard}>
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <View key={i} style={styles.filmHolee} />
+                  <View key={i} style={styles.filmHoleCard} />
                 ))}
               </View>
 
@@ -42,9 +42,9 @@ export default function MovieList({ movies, handleSelectedMovie, scrollEnabled =
               <Image source={{ uri: movie.Poster }} style={styles.moviePoster} />
 
               {/* Right Film Border */}
-              <View style={styles.filmHoless}>
+              <View style={styles.filmHolesCard}>
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <View key={i} style={styles.filmHolee} />
+                  <View key={i} style={styles.filmHoleCard} />
                 ))}
               </View>
             </View>
