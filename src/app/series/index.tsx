@@ -1,5 +1,5 @@
 import WatchedList from '../components/WatchedList'
 
-export default function Series() {
+export default function SeriesScreen() {
   return <WatchedList type="series" />
 }
