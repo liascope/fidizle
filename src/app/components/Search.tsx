@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
-import { styles, colors } from '../styles/global'
+import { colors, styles } from '../styles/global'
 
 export default function Search({ query, setSearchQuery }: { query: string; setSearchQuery: (value: string) => void }) {
   const inputEl = useRef<TextInput>(null)
