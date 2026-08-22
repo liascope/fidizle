@@ -1,40 +1,26 @@
 import { Stack } from 'expo-router'
-import { LinearGradient } from 'expo-linear-gradient'
-import HomeHeader from './components/HomeHeader'
-import Search from './components/Search'
-import Footer from './components/Footer'
-import { styles } from './styles/global'
-
-import { SearchProvider, useSearch } from './context/SearchContext'
-import SearchResults from './components/SearchResults'
-
-function AppLayout() {
-  const { query, setSearchQuery } = useSearch()
-
-  return (
-    <LinearGradient colors={['#090909', '#260909', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.container}>
-      <HomeHeader>
-        <Search query={query} setSearchQuery={setSearchQuery} />
-      </HomeHeader>
-      {query.trim().length > 0 ? (
-        <SearchResults query={query} />
-      ) : (
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        />
-      )}
-
-      <Footer />
-    </LinearGradient>
-  )
-}
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { SearchProvider } from './context/SearchContext'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import AppShell from './components/AppShell'
 
 export default function RootLayout() {
   return (
-    <SearchProvider>
-      <AppLayout />
-    </SearchProvider>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <SearchProvider>
+            <AppShell>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                }}
+              />
+            </AppShell>
+          </SearchProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   )
 }
