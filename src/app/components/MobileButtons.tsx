@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View, StyleSheet } from 'react-native'
 import { Link, usePathname } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
 
-import { colors, styles } from '../styles/global'
+import { colors } from '../styles/global'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -140,3 +140,67 @@ export default function MobileButtons() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  // MobileButton
+  mobileNavigation: {
+    position: 'absolute',
+    right: 20,
+    bottom: 28,
+    width: 60,
+    height: 230,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    zIndex: 100,
+  },
+
+  mobileNavItem: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+
+  mobileNavMain: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    shadowColor: colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+
+  mobileNavButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: colors.black400,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderWidth: 1,
+    borderColor: colors.black900,
+  },
+
+  mobileNavLabel: {
+    position: 'absolute',
+    right: 56,
+    color: colors.text,
+    fontSize: 11,
+    fontWeight: '700',
+    backgroundColor: colors.black100,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+})

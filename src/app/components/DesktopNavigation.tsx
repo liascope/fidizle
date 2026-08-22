@@ -1,8 +1,8 @@
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { Link, usePathname } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-import { colors, styles } from '../styles/global'
+import { colors } from '../styles/global'
 
 export default function DesktopNavigation() {
   const pathname = usePathname()
@@ -30,3 +30,44 @@ export default function DesktopNavigation() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  navigation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.black400,
+    borderRadius: 100,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    minWidth: 105,
+    paddingVertical: 9,
+    paddingHorizontal: 16,
+    borderRadius: 100,
+  },
+
+  navButtonActive: {
+    backgroundColor: colors.darkRed100,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+
+  navText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textDark,
+    letterSpacing: 0.3,
+  },
+
+  navTextActive: {
+    color: colors.primary,
+    fontWeight: '700',
+  },
+})

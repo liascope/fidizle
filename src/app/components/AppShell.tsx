@@ -4,9 +4,9 @@ import { useSearch } from '../context/SearchContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import HomeHeader from './HomeHeader'
-import Search from './Search'
 import DesktopNavigation from './DesktopNavigation'
 import useResponsive from '../hooks/useResponsive'
+import Search from './Search'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { query, setSearchQuery } = useSearch()
