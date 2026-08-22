@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import { styles, colors } from '../styles/global'
 import Ionicons from '@expo/vector-icons/Ionicons'
-
+import useResponsive from '../hooks/useResponsive'
 function average(arr: number[]): number {
   if (arr.length === 0) return 0
 
@@ -35,36 +35,39 @@ export default function WatchedSummary({ watched, type }: { watched: WatchedMovi
 
   const isSeries = type === 'series'
 
+  const isDesktop = useResponsive()
+
   return (
-    <View style={styles.summary}>
-      <Text style={styles.summaryTitle}>{isSeries ? 'Series you watched' : 'Movies you watched'}</Text>
+    <View style={isDesktop ? styles.summaryDesktop : styles.summary}>
+      <Text style={isDesktop ? styles.summaryTitleDesktop : styles.summaryTitle}>{isSeries ? 'Series you watched' : 'Movies you watched'}</Text>
 
-      <View style={styles.summaryContent}>
+      <View style={isDesktop ? styles.summaryContentDesktop : styles.summaryContent}>
         <View style={styles.summaryItem}>
-          <Ionicons name={isSeries ? 'tv' : 'film'} size={22} color={colors.primaryDark} />
+          <Ionicons name={isSeries ? 'tv-outline' : 'film-outline'} size={isDesktop ? 24 : 22} color={colors.primaryDark} />
 
-          <Text style={styles.summaryText}>
+          <Text style={isDesktop ? styles.summaryTextDesktop : styles.summaryText}>
             {watched.length} {isSeries ? 'series' : 'movies'}
           </Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Ionicons name="stats-chart" size={20} color={colors.textDark} />
+          <Ionicons name="stats-chart" size={isDesktop ? 21 : 20} color={colors.textDark} />
 
-          <Text style={styles.summaryText}>IMDb {avgImdbRating.toFixed(2)}</Text>
+          <Text style={isDesktop ? styles.summaryTextDesktop : styles.summaryText}>IMDb {avgImdbRating.toFixed(2)}</Text>
         </View>
 
         <View style={styles.summaryItem}>
-          <Ionicons name="star" size={20} color="#fcc416" />
+          <Ionicons name="star" size={isDesktop ? 21 : 20} color="#fcc416" />
 
-          <Text style={styles.summaryText}>{avgUserRating.toFixed(2)}</Text>
+          <Text style={isDesktop ? styles.summaryTextDesktop : styles.summaryText}>{avgUserRating.toFixed(2)}</Text>
         </View>
 
-        {/* Movie → Runtime / Series → Seasons */}
         <View style={styles.summaryItem}>
-          <Ionicons name={isSeries ? 'albums-outline' : 'hourglass-outline'} size={20} color={colors.textDark} />
+          <Ionicons name={isSeries ? 'albums-outline' : 'hourglass-outline'} size={isDesktop ? 21 : 20} color={colors.textDark} />
 
-          <Text style={styles.summaryText}>{isSeries ? `${avgSeasons.toFixed(0)} seasons` : `${avgRuntime.toFixed(0)} min`}</Text>
+          <Text style={isDesktop ? styles.summaryTextDesktop : styles.summaryText}>
+            {isSeries ? `${avgSeasons.toFixed(0)} seasons` : `${avgRuntime.toFixed(0)} min`}
+          </Text>
         </View>
       </View>
     </View>
