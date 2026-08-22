@@ -1,5 +1,5 @@
-import AboutScreen from '../components/AboutScreen'
+import AboutPage from '../components/AboutPage'
 
-export default function About() {
-  return <AboutScreen />
+export default function AboutScreen() {
+  return <AboutPage />
 }

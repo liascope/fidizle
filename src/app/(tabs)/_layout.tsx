@@ -12,12 +12,9 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-
         tabBarShowLabel: false,
-
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textDark,
-
         tabBarStyle: isDesktop
           ? { display: 'none' }
           : {
@@ -59,14 +56,14 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
-        name="movies"
+        name="movies/index"
         options={{
           tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'film' : 'film-outline'} size={22} color={color} />,
         }}
       />
 
       <Tabs.Screen
-        name="series"
+        name="series/index"
         options={{
           tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'tv' : 'tv-outline'} size={22} color={color} />,
         }}
