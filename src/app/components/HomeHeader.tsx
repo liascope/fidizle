@@ -1,71 +1,44 @@
-import { Text, View, useWindowDimensions, Image } from 'react-native'
-import { usePathname, Link } from 'expo-router'
+import { Text, View, Image, Pressable } from 'react-native'
+import { Link } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { styles, colors } from '../styles/global'
 import { LinearGradient } from 'expo-linear-gradient'
+import useResponsive from '../hooks/useResponsive'
 
 export default function HomeHeader({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  const { width } = useWindowDimensions()
-  const isMobile = width < 700
-
+  const isDesktop = useResponsive()
   return (
-    <LinearGradient colors={['#080808', '#4A1518', '#080808']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.navBar}>
-      <View style={[styles.filmHoles, styles.filmHolesTop]}>
-        {Array.from({ length: 22 }).map((_, i) => (
-          <View key={i} style={styles.filmHole} />
+    <LinearGradient
+      colors={['#080808', '#4A1518', '#080808']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+      style={isDesktop ? styles.headerDesktop : styles.header}
+    >
+      <View style={[styles.filmHoles, styles.filmHolesTop, isDesktop && styles.filmHolesDesktop]}>
+        {Array.from({ length: isDesktop ? 40 : 20 }).map((_, i) => (
+          <View key={i} style={isDesktop ? styles.filmHoleDesktop : styles.filmHole} />
         ))}
       </View>
 
-      <View style={styles.navBarContent}>
-        {/* Logo */}
+      <Link href="/" style={{ flex: 1 }}>
+        <View style={isDesktop ? styles.logoDesktop : styles.logo}>
+          <Image source={require('@/assets/clapboard.png')} style={isDesktop ? styles.logoIconDesktop : styles.logoIcon} />
 
-        <Link href="/">
-          <View style={styles.logo}>
-            <Image source={require('@/assets/clapboard.png')} style={styles.logoIcon}></Image>
-            <Text style={styles.logoTitle}>fidizle</Text>
-          </View>
-        </Link>
+          <Text style={isDesktop ? styles.logoTitleDesktop : styles.logoTitle}>fidizle</Text>
+        </View>
+      </Link>
 
-        {children}
-        {isMobile ? (
-          <View style={styles.mobileMenu}>
-            <Link href="/movies" asChild style={styles.mobileMenuButton}>
-              <View style={pathname === '/movies' && styles.mobileMenuButtonActive}>
-                <Ionicons name="film-outline" size={20} color={pathname === '/movies' ? colors.primary : colors.text} />
-              </View>
-            </Link>
+      {children}
 
-            <Link href="/series" asChild style={styles.mobileMenuButton}>
-              <View style={pathname === '/series' && styles.mobileMenuButtonActive}>
-                <Ionicons name="tv-outline" size={20} color={pathname === '/series' ? colors.primary : colors.text} />
-              </View>
-            </Link>
-          </View>
-        ) : (
-          <View style={styles.navigation}>
-            <Link href="/movies" asChild style={styles.navButton}>
-              <View style={pathname === '/movies' && styles.navButtonActive}>
-                <Ionicons name="film-outline" size={18} color={pathname === '/movies' ? colors.primary : colors.text} />
+      <Link href="/about" asChild>
+        <Pressable style={isDesktop ? styles.headerButtonDesktop : styles.headerButton}>
+          <Ionicons name="information-circle-outline" size={isDesktop ? 23 : 20} color={colors.textMuted} />
+        </Pressable>
+      </Link>
 
-                <Text style={[styles.navText, pathname === '/movies' && styles.navTextActive]}>Movies</Text>
-              </View>
-            </Link>
-
-            <Link href="/series" asChild style={styles.navButton}>
-              <View style={pathname === '/series' && styles.navButtonActive}>
-                <Ionicons name="tv-outline" size={18} color={pathname === '/series' ? colors.primary : colors.text} />
-
-                <Text style={[styles.navText, pathname === '/series' && styles.navTextActive]}>Series</Text>
-              </View>
-            </Link>
-          </View>
-        )}
-      </View>
-
-      <View style={[styles.filmHoles, styles.filmHolesBottom]}>
-        {Array.from({ length: 22 }).map((_, i) => (
-          <View key={i} style={styles.filmHole} />
+      <View style={[styles.filmHoles, styles.filmHolesBottom, isDesktop && styles.filmHolesDesktop]}>
+        {Array.from({ length: isDesktop ? 40 : 20 }).map((_, i) => (
+          <View key={i} style={isDesktop ? styles.filmHoleDesktop : styles.filmHole} />
         ))}
       </View>
     </LinearGradient>

@@ -7,23 +7,26 @@
     "icon": "./assets/clapboard.png",
     "scheme": "fidizle",
     "userInterfaceStyle": "automatic",
-
     "ios": {
-      "icon": "./assets/clapboard.png"
+      "icon": "./assets/clapboard.png",
+      "bundleIdentifier": "com.liascope.fidizle",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
-
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#090909",
-        "foregroundImage": "./assets/clapboard.png"
+        "foregroundImage": "./assets/clapboard.png",
+        "edgeToEdgeEnabled": false
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.liascope.fidizle",
+      "softwareKeyboardLayoutMode": "pan"
     },
-
     "web": {
       "output": "static"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -33,12 +36,18 @@
           "image": "./assets/clapboard.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fda67eaf-43bf-4c6a-9117-59b1ab5f12a3"
+      }
     }
   }
 }
