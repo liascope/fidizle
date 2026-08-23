@@ -5,13 +5,14 @@ import { Image, Pressable, Text, View } from 'react-native'
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-import { styles, colors } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
+import { createStyles } from '../styles/global'
 import useResponsive from '../hooks/useResponsive'
 import StarRating from './StarRating'
 import Toast from './Toast'
+import { WatchedMovie } from './WatchedSummary'
 
 import { useOmdb } from '../hooks/useOmdb'
-import { WatchedMovie } from './WatchedSummary'
 
 type OmdbMovieDetails = {
   Title: string
@@ -29,6 +30,7 @@ type OmdbMovieDetails = {
   Writer: string
   Genre: string
 }
+
 type SelectedMovieProps = {
   selectedId: string
   handleCloseId: () => void
@@ -37,6 +39,9 @@ type SelectedMovieProps = {
 }
 
 export default function SelectedMovie({ selectedId, handleCloseId, handleAddWatchedMovie, watched }: SelectedMovieProps) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const [userRating, setUserRating] = useState(0)
   const [toastVisible, setToastVisible] = useState(false)
 
@@ -102,9 +107,7 @@ export default function SelectedMovie({ selectedId, handleCloseId, handleAddWatc
         <View style={isDesktop ? styles.detailsStateIconDesktop : styles.detailsStateIcon}>
           <Ionicons name="film-outline" size={isDesktop ? 32 : 28} color={colors.primary} />
         </View>
-
         <Text style={isDesktop ? styles.detailsStateTitleDesktop : styles.detailsStateTitle}>Loading movie...</Text>
-
         <Text style={isDesktop ? styles.detailsStateTextDesktop : styles.detailsStateText}>Getting the movie details for you.</Text>
       </View>
     )
@@ -202,24 +205,26 @@ export default function SelectedMovie({ selectedId, handleCloseId, handleAddWatc
               <View>
                 <Text style={isDesktop ? styles.ratingTitleDesktop : styles.ratingTitle}>Your rating</Text>
 
-                <Text style={isDesktop ? styles.ratingSubtitleDesktop : styles.ratingSubtitle}>How would you rate this movie?</Text>
+                <Text style={isDesktop ? styles.ratingSubtitleDesktop : styles.ratingSubtitle}>How would you rate this {type}?</Text>
               </View>
 
-              <StarRating maxRating={10} color="#FFD700" onSetRating={setUserRating} />
+              <StarRating maxRating={10} color={colors.star} onSetRating={setUserRating} />
 
               {userRating > 0 && (
                 <Pressable style={isDesktop ? styles.btnAddDesktop : styles.btnAdd} onPress={handleAdd}>
                   <Ionicons name="add" size={isDesktop ? 17 : 16} color={colors.text} />
 
-                  <Text style={isDesktop ? styles.btnAddTextDesktop : styles.btnAddText}>Add to List</Text>
+                  <Text style={isDesktop ? styles.btnAddTextDesktop : styles.btnAddText}>Add to archive</Text>
                 </Pressable>
               )}
             </>
           ) : (
             <View style={styles.alreadyRated}>
-              <Ionicons name="star" size={isDesktop ? 19 : 18} color="#fcc416" />
+              <Ionicons name="star" size={isDesktop ? 19 : 18} color={colors.star} />
 
-              <Text style={isDesktop ? styles.detailsTextDesktop : styles.detailsText}>You rated this movie {watchedUserRating}/10</Text>
+              <Text style={isDesktop ? styles.detailsTextDesktop : styles.detailsText}>
+                You rated this {type} {' · '} {watchedUserRating}/10
+              </Text>
             </View>
           )}
         </View>

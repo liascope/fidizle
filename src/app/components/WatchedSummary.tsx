@@ -1,7 +1,9 @@
 import { Text, View } from 'react-native'
-import { styles, colors } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
+import { createStyles } from '../styles/global'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import useResponsive from '../hooks/useResponsive'
+
 function average(arr: number[]): number {
   if (arr.length === 0) return 0
 
@@ -25,6 +27,9 @@ export type WatchedMovie = {
 }
 
 export default function WatchedSummary({ watched, type }: { watched: WatchedMovie[]; type: MediaType }) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating))
 
   const avgUserRating = average(watched.map((movie) => movie.userRating))

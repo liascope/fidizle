@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { LINKS } from '../constants/links'
 
 const apiKey = process.env.EXPO_PUBLIC_OMDB_API_KEY
 
@@ -23,7 +24,7 @@ export function useOmdb({ query, id }: UseOmdbProps) {
 
         const params = id ? `i=${encodeURIComponent(id)}` : `s=${encodeURIComponent(query ?? '')}`
 
-        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&${params}`, {
+        const res = await fetch(`${LINKS.ombd}${apiKey}&${params}`, {
           signal: controller.signal,
         })
 

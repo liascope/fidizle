@@ -1,7 +1,10 @@
 import { FlatList, Pressable, Text, View } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MoviePoster from './MoviePoster'
-import { colors, styles } from '../styles/global'
+
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
+
 import useResponsive from '../hooks/useResponsive'
 type Movie = {
   imdbID: string
@@ -18,6 +21,8 @@ type MovieListProps = {
 }
 
 export default function MovieList({ movies, handleSelectedMovie, scrollEnabled = true }: MovieListProps) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
   const isDesktop = useResponsive()
 
   return (

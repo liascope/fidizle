@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import { View, Image } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { styles, colors } from '../styles/global'
+
+import { useTheme } from '../context/ThemeContext'
+import { createStyles } from '../styles/global'
 export default function MoviePoster({ uri, type }: { uri: string; type: string }) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const [hasError, setHasError] = useState(uri === 'N/A')
 
   if (hasError) {
