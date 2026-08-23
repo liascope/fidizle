@@ -5,6 +5,7 @@ import { SearchProvider } from './context/SearchContext'
 import { ArchiveProvider } from './context/ArchiveContext'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AppShell from './components/AppShell'
+import { ThemeProvider } from './context/ThemeContext'
 
 export default function RootLayout() {
   return (
@@ -13,13 +14,15 @@ export default function RootLayout() {
         <BottomSheetModalProvider>
           <SearchProvider>
             <ArchiveProvider>
-              <AppShell>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                  }}
-                />
-              </AppShell>
+              <ThemeProvider>
+                <AppShell>
+                  <Stack
+                    screenOptions={{
+                      headerShown: false,
+                    }}
+                  />
+                </AppShell>{' '}
+              </ThemeProvider>
             </ArchiveProvider>
           </SearchProvider>
         </BottomSheetModalProvider>

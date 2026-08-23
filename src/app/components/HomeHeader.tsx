@@ -1,16 +1,19 @@
 import { View, Pressable } from 'react-native'
-import { Link } from 'expo-router'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { styles, colors } from '../styles/global'
+
 import { LinearGradient } from 'expo-linear-gradient'
 import useResponsive from '../hooks/useResponsive'
 import Logo from './Logo'
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
 
 export default function HomeHeader({ children }: { children: React.ReactNode }) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const isDesktop = useResponsive()
   return (
     <LinearGradient
-      colors={['#080808', '#4A1518', '#080808']}
+      colors={[colors.black100, colors.darkRed100, colors.black100]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={isDesktop ? styles.headerDesktop : styles.header}
@@ -24,12 +27,6 @@ export default function HomeHeader({ children }: { children: React.ReactNode }) 
       <Logo />
 
       {children}
-
-      <Link href="/about" asChild>
-        <Pressable style={isDesktop ? styles.headerButtonDesktop : styles.headerButton}>
-          <Ionicons name="information-circle-outline" size={isDesktop ? 23 : 20} color={colors.textMuted} />
-        </Pressable>
-      </Link>
 
       <View style={[styles.filmHoles, styles.filmHolesBottom, isDesktop && styles.filmHolesDesktop]}>
         {Array.from({ length: isDesktop ? 30 : 20 }).map((_, i) => (

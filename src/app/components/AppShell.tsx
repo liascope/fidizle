@@ -7,15 +7,18 @@ import HomeHeader from './HomeHeader'
 import DesktopNavigation from './DesktopNavigation'
 import useResponsive from '../hooks/useResponsive'
 import Search from './Search'
+import MobileButtons from './UtilitisButtons'
+import { useTheme } from '../context/ThemeContext'
+import UtilitisButtons from './UtilitisButtons'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { query, setSearchQuery } = useSearch()
   const insets = useSafeAreaInsets()
   const isDesktop = useResponsive()
-
+  const { colors } = useTheme()
   return (
     <LinearGradient
-      colors={['#090909', '#260909', '#090909']}
+      colors={[colors.black, colors.darkRed, colors.black]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={{
@@ -27,6 +30,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <Search query={query} setSearchQuery={setSearchQuery} />
         {isDesktop && <DesktopNavigation />}
       </HomeHeader>
+      <UtilitisButtons />
       <View style={{ flex: 1 }}>{children}</View>
     </LinearGradient>
   )
