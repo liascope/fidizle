@@ -4,8 +4,8 @@ import { router } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { LinearGradient } from 'expo-linear-gradient'
 import BottomSheet from '@gorhom/bottom-sheet'
-
-import { colors, styles } from '../styles/global'
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
 
 import Loader from './Loader'
 import MovieList from './MovieList'
@@ -17,6 +17,9 @@ import { useArchived } from '../context/ArchiveContext'
 import { useOmdb } from '../hooks/useOmdb'
 
 export default function SearchPage() {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const { query, selectedId, setSelectedId } = useSearch()
   const { watched, setWatched } = useArchived()
   const { movies, isLoading, error } = useOmdb({ query })
@@ -78,7 +81,7 @@ export default function SearchPage() {
   }, [searchOpacity])
 
   return (
-    <LinearGradient colors={['#090909', '#260909', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
+    <LinearGradient colors={[colors.black, colors.darkRed, colors.black]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
       {/* Header */}
       <View style={styles.searchHeader}>
         <Pressable style={styles.searchBackButton} onPress={() => router.back()} hitSlop={8}>

@@ -3,8 +3,8 @@ import { FlatList, Pressable, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-import { styles, colors } from '../styles/global'
-
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
 import WatchedSummary from './WatchedSummary'
 import Toast from './Toast'
 import useResponsive from '../hooks/useResponsive'
@@ -17,6 +17,9 @@ type WatchedListProps = {
 }
 
 export default function ArchivePage({ type }: WatchedListProps) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const { movies, series, setWatched } = useArchived()
 
   const watched = type === 'series' ? series : movies
@@ -31,7 +34,7 @@ export default function ArchivePage({ type }: WatchedListProps) {
   const isDesktop = useResponsive()
 
   return (
-    <LinearGradient colors={['#090909', '#260909', '#090909']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
+    <LinearGradient colors={[colors.black, colors.darkRed, colors.black]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
       <WatchedSummary watched={watched} type={type} />
 
       <FlatList

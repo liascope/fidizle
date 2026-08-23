@@ -1,18 +1,20 @@
 import { Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { styles } from '../styles/global'
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
 import HomepageCards from './HomepageCards'
-import { useArchived } from '../context/ArchiveContext'
+
 import useResponsive from '../hooks/useResponsive'
 
 export default function HomePage() {
-  const { movies, series } = useArchived()
   const isDesktop = useResponsive()
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
 
   return (
     <LinearGradient
-      colors={['#090909', '#260909', '#090909']}
+      colors={[colors.black, colors.darkRed, colors.black]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={{ flex: 1, padding: isDesktop ? 40 : 20 }}

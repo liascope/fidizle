@@ -1,9 +1,13 @@
 import { Linking, Pressable, Text, View } from 'react-native'
 import useResponsive from '../hooks/useResponsive'
-import { styles } from '../styles/global'
+import { createStyles } from '../styles/global'
+import { useTheme } from '../context/ThemeContext'
 import { LINKS } from '../constants/links'
 import Logo from './Logo'
 export default function AboutPage() {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   const isDesktop = useResponsive()
 
   return (
