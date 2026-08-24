@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react'
-import { Pressable, Text, View, StyleSheet, Share } from 'react-native'
+import { Pressable, Text, View, StyleSheet, Modal } from 'react-native'
 import { Link, usePathname } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
-
+import ShareArchive from './ShareArchive'
 import { colors } from '../styles/global'
 import { useTheme } from '../context/ThemeContext'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export default function MobileButtons() {
+export default function UtilitisButtons() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-
+  const [shareOpen, setShareOpen] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const progress = useSharedValue(0)
+  function handleSharePress() {
+    setIsOpen(false)
 
+    progress.value = withTiming(0, {
+      duration: 180,
+    })
+
+    setShareOpen(true)
+  }
   useEffect(() => {
     setIsOpen(false)
 
@@ -44,16 +52,6 @@ export default function MobileButtons() {
     progress.value = withTiming(0, {
       duration: 180,
     })
-  }
-
-  async function handleShare() {
-    try {
-      await Share.share({
-        message: 'Check out Fidizle — your movie & series archive.',
-      })
-    } catch (error) {
-      console.error('Failed to share:', error)
-    }
   }
 
   const themeStyle = useAnimatedStyle(() => ({
@@ -122,49 +120,54 @@ export default function MobileButtons() {
   }))
 
   return (
-    <View style={styles.mobileNavigation} pointerEvents="box-none">
+    <View style={styles.utilitisNavigation} pointerEvents="box-none">
       {/* Theme */}
-      <Animated.View style={[styles.mobileNavItem, themeStyle]}>
-        <Pressable style={styles.mobileNavButton} onPress={handleThemeToggle}>
+      <Animated.View style={[styles.utilitisNavItem, themeStyle]}>
+        <Pressable style={styles.utilitisNavButton} onPress={handleThemeToggle}>
           <Ionicons name={theme === 'dark' ? 'sunny-outline' : 'moon-outline'} size={19} color={colors.text} />
         </Pressable>
 
-        <Text style={styles.mobileNavLabel}>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</Text>
+        <Text style={styles.utilitisNavLabel}>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</Text>
       </Animated.View>
 
       {/* Share */}
-      <Animated.View style={[styles.mobileNavItem, shareStyle]}>
-        <Pressable style={styles.mobileNavButton} onPress={handleShare}>
+      <Animated.View style={[styles.utilitisNavItem, shareStyle]}>
+        <Pressable style={styles.utilitisNavButton} onPress={handleSharePress}>
           <Ionicons name="share-outline" size={19} color={colors.text} />
         </Pressable>
 
-        <Text style={styles.mobileNavLabel}>Share</Text>
+        <Text style={styles.utilitisNavLabel}>Share</Text>
       </Animated.View>
 
       {/* About */}
-      <Animated.View style={[styles.mobileNavItem, aboutStyle]}>
+      <Animated.View style={[styles.utilitisNavItem, aboutStyle]}>
         <Link href="/about" asChild>
-          <Pressable style={styles.mobileNavButton}>
+          <Pressable style={styles.utilitisNavButton}>
             <Ionicons name="information-outline" size={19} color={colors.text} />
           </Pressable>
         </Link>
 
-        <Text style={styles.mobileNavLabel}>About</Text>
+        <Text style={styles.utilitisNavLabel}>About</Text>
       </Animated.View>
 
       {/* Main button */}
-      <AnimatedPressable style={[styles.mobileNavMain, mainButtonStyle]} onPress={toggleMenu}>
+      <AnimatedPressable style={[styles.utilitisNavMain, mainButtonStyle]} onPress={toggleMenu}>
         <Ionicons name="add" size={25} color={colors.text} />
       </AnimatedPressable>
+      <Modal visible={shareOpen} transparent animationType="fade" onRequestClose={() => setShareOpen(false)}>
+        <View style={styles.modalOverlay}>
+          <ShareArchive onClose={() => setShareOpen(false)} />
+        </View>
+      </Modal>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  mobileNavigation: {
+  utilitisNavigation: {
     position: 'absolute',
     right: 20,
-    bottom: 60,
+    bottom: 130,
     width: 60,
     height: 230,
     alignItems: 'center',
@@ -172,14 +175,14 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
 
-  mobileNavItem: {
+  utilitisNavItem: {
     position: 'absolute',
     bottom: 0,
     right: 0,
     alignItems: 'center',
   },
 
-  mobileNavMain: {
+  utilitisNavMain: {
     width: 56,
     height: 56,
     borderRadius: 28,
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
 
-  mobileNavButton: {
+  utilitisNavButton: {
     width: 46,
     height: 46,
     borderRadius: 23,
@@ -209,7 +212,7 @@ const styles = StyleSheet.create({
     borderColor: colors.lightRed,
   },
 
-  mobileNavLabel: {
+  utilitisNavLabel: {
     position: 'absolute',
     right: 56,
     color: colors.text,
@@ -220,5 +223,12 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 6,
     overflow: 'hidden',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
   },
 })
