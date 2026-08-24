@@ -1,8 +1,8 @@
-import { Linking, Pressable, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import useResponsive from '../hooks/useResponsive'
 import { createStyles } from '../styles/global'
 import { useTheme } from '../context/ThemeContext'
-import { LINKS } from '../constants/links'
+
 import Logo from './Logo'
 export default function AboutPage() {
   const { colors } = useTheme()
@@ -38,14 +38,6 @@ export default function AboutPage() {
           <Text style={isDesktop ? styles.aboutInfoLabelDesktop : styles.aboutInfoLabel}>Copyright</Text>
 
           <Text style={isDesktop ? styles.aboutInfoValueDesktop : styles.aboutInfoValue}>© 2026 liascope</Text>
-        </View>
-
-        <View style={styles.aboutInfoRow}>
-          <Text style={isDesktop ? styles.aboutInfoLabelDesktop : styles.aboutInfoLabel}>Icon</Text>
-
-          <Pressable onPress={() => Linking.openURL(LINKS.iconCredit)}>
-            <Text style={isDesktop ? styles.aboutLinkDesktop : styles.aboutLink}>smalllikeart</Text>
-          </Pressable>
         </View>
       </View>
 

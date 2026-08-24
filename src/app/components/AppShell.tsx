@@ -7,7 +7,6 @@ import HomeHeader from './HomeHeader'
 import DesktopNavigation from './DesktopNavigation'
 import useResponsive from '../hooks/useResponsive'
 import Search from './Search'
-import MobileButtons from './UtilitisButtons'
 import { useTheme } from '../context/ThemeContext'
 import UtilitisButtons from './UtilitisButtons'
 

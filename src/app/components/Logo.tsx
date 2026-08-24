@@ -1,15 +1,21 @@
-import { Text, View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import { colors } from '../styles/global'
 import useResponsive from '../hooks/useResponsive'
+import { useTheme } from '../context/ThemeContext'
 
-export default function Logo({ about = false }) {
+export default function Logo() {
   const isDesktop = useResponsive()
+  const { theme } = useTheme()
+
   return (
     <Link href="/">
       <View style={isDesktop ? styles.logoDesktop : styles.logo}>
-        <Image source={require('@/assets/clapboard.png')} style={isDesktop ? styles.logoIconDesktop : styles.logoIcon} />
-        <Text style={isDesktop ? styles.logoTitleDesktop : styles.logoTitle}>fidizle</Text>
+        <Image
+          source={require('@/assets/appLogo.png')}
+          // source={theme === 'dark' ? require('@/assets/logo2.png') : require('@/assets/logo1.png')}
+          style={isDesktop ? styles.logoIconDesktop : styles.logoIcon}
+        />
       </View>
     </Link>
   )
@@ -25,16 +31,16 @@ const styles = StyleSheet.create({
   },
 
   logoIcon: {
-    width: 20,
-    height: 20,
+    width: 82,
+    height: 82,
     resizeMode: 'contain',
   },
 
-  logoTitle: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: colors.primary,
-  },
+  // logoTitle: {
+  //   fontSize: 24,
+  //   fontWeight: '800',
+  //   color: colors.primary,
+  // },
 
   logoDesktop: {
     flexDirection: 'row',
@@ -43,14 +49,14 @@ const styles = StyleSheet.create({
   },
 
   logoIconDesktop: {
-    width: 34,
-    height: 34,
-    resizeMode: 'contain',
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
   },
 
-  logoTitleDesktop: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: colors.primary,
-  },
+  // logoTitleDesktop: {
+  //   fontSize: 30,
+  //   fontWeight: '800',
+  //   color: colors.primary,
+  // },
 })

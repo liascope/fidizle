@@ -4,11 +4,11 @@
     "slug": "fidizle",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/clapboard.png",
+    "icon": "./assets/appLogo.png",
     "scheme": "fidizle",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/clapboard.png",
+      "icon": "./assets/appLogo.png",
       "bundleIdentifier": "com.liascope.fidizle",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -16,8 +16,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#090909",
-        "foregroundImage": "./assets/clapboard.png",
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/appLogo.png",
         "edgeToEdgeEnabled": false
       },
       "predictiveBackGestureEnabled": false,
@@ -32,8 +32,8 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#090909",
-          "image": "./assets/clapboard.png",
+          "backgroundColor": "#FFFFFF",
+          "image": "./assets/appLogo.png",
           "imageWidth": 76
         }
       ],

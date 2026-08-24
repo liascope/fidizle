@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View } from 'react-native'
 import { Link, usePathname } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 

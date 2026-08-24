@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native'
 import { darkColors } from '../constants/colors'
 export const colors = {
   // Brand
-  primary: '#e50914',
+  primary: 'rgb(229, 9, 20)',
   primaryDark: '#7e0d13',
 
   // Text
   text: '#fff5f5',
-  textDark: '#A3A3A3',
+  textDark: 'rgb(163, 163, 163)',
   textMuted: '#737373',
 
   // Backgrounds
@@ -1397,6 +1397,59 @@ export function createStyles(colors: typeof darkColors) {
       color: colors.text,
       fontSize: 14,
       fontWeight: '700',
+    },
+    // Toast
+    toast: {
+      position: 'absolute',
+      bottom: 24,
+      left: 20,
+      right: 20,
+      minHeight: 52,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      backgroundColor: colors.black100,
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: colors.black900,
+
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.4,
+      shadowRadius: 20,
+      elevation: 12,
+      zIndex: 9999,
+    },
+
+    toastIcon: {
+      width: 30,
+      height: 30,
+      borderRadius: 100,
+      backgroundColor: colors.lightRed,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: 11,
+      borderWidth: 1,
+      borderColor: colors.redBorder,
+    },
+
+    toastIconText: {
+      color: colors.primary,
+      fontSize: 15,
+      fontWeight: '800',
+    },
+
+    toastText: {
+      flex: 1,
+
+      color: colors.text,
+      fontSize: 14,
+      fontWeight: '600',
+      letterSpacing: 0.1,
     },
   })
 }
