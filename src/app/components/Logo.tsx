@@ -1,21 +1,14 @@
 import { View, Image, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
-import { colors } from '../styles/global'
 import useResponsive from '../hooks/useResponsive'
-import { useTheme } from '../context/ThemeContext'
 
 export default function Logo() {
   const isDesktop = useResponsive()
-  const { theme } = useTheme()
 
   return (
     <Link href="/">
       <View style={isDesktop ? styles.logoDesktop : styles.logo}>
-        <Image
-          source={require('@/assets/appLogo.png')}
-          // source={theme === 'dark' ? require('@/assets/logo2.png') : require('@/assets/logo1.png')}
-          style={isDesktop ? styles.logoIconDesktop : styles.logoIcon}
-        />
+        <Image source={require('@/assets/logo.png')} style={isDesktop ? styles.logoIconDesktop : styles.logoIcon} />
       </View>
     </Link>
   )
@@ -31,16 +24,10 @@ const styles = StyleSheet.create({
   },
 
   logoIcon: {
-    width: 82,
-    height: 82,
+    width: 70,
+    height: 70,
     resizeMode: 'contain',
   },
-
-  // logoTitle: {
-  //   fontSize: 24,
-  //   fontWeight: '800',
-  //   color: colors.primary,
-  // },
 
   logoDesktop: {
     flexDirection: 'row',
@@ -49,14 +36,8 @@ const styles = StyleSheet.create({
   },
 
   logoIconDesktop: {
-    width: 100,
-    height: 100,
-    resizeMode: 'cover',
+    width: 95,
+    height: 95,
+    resizeMode: 'contain',
   },
-
-  // logoTitleDesktop: {
-  //   fontSize: 30,
-  //   fontWeight: '800',
-  //   color: colors.primary,
-  // },
 })
