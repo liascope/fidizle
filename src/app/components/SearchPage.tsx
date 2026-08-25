@@ -93,7 +93,7 @@ export default function SearchPage() {
               <Ionicons name="search" size={22} color={colors.primary} />
             </Animated.View>
           )}
-          <Text style={styles.resultsTitle}> Search results</Text>
+          <Text style={styles.resultsTitle}> Search results </Text>
         </View>
       </View>
 
