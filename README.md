@@ -1,65 +1,147 @@
-Fidizle 🎬
+Movies & Series Archive
 
-A React Native & Expo app for discovering, rating and saving movies and series.
+A modern movie and series archive app built with React Native, TypeScript, and Expo.
+
+The app allows users to discover movies and TV series through the OMDb API, view detailed information, assign personal ratings, and organize titles in separate movie and series archives.
+
+The interface is designed with a modern, Netflix-inspired visual language and supports both light and dark mode.
 
 Features
 
-- 🔎 Search for movies and series
-- 🎬 View detailed information
-- ⭐ Rate movies and series yourself
-- 💾 Save watched movies locally
-- 📊 View statistics about watched movies
-- 📱 Built for mobile with React Native & Expo
+🔎 Search & Discovery
+
+Search for movies and TV series using the OMDb API.
+
+Search results provide a clear overview of available titles, making it easy to discover and select content.
+
+🎬 Detailed Title Information
+
+Each movie or series provides relevant information including:
+
+* Rating
+* Awards
+* Director
+* Plot / synopsis
+* Title metadata
+* Movie or series type
+
+The detail view is designed to make the most important information easy to scan.
+
+⭐ Personal Ratings
+
+Users can assign their own star rating to movies and series, allowing the archive to reflect personal preferences rather than relying solely on external ratings.
+
+📚 Personal Archives
+
+Titles can be added to a personal archive and organized into separate sections for:
+
+* Movies
+* Series
+
+This creates a dedicated personal library of saved content.
+
+📤 Native Sharing
+
+Movies and series archives can be shared using the device's native sharing functionality.
+
+This allows users to share their archive with other apps and services such as messaging and social media applications.
+
+🌙 Dark & Light Mode
+
+The application supports both dark and light themes with a consistent UI across the entire app.
+
+📱 Responsive Mobile UI
+
+The interface is designed specifically for mobile devices while adapting the layout and presentation to different screen sizes.
+
+The visual design follows a modern, streaming-service-inspired aesthetic with an emphasis on:
+
+* Clear content hierarchy
+* Card-based layouts
+* Smooth interactions
+* Accessible navigation
+* Responsive components
 
 Tech Stack
 
-- React Native
-- Expo
-- TypeScript
-- Expo Router
-- React Hooks
-- OMDb API
-- AsyncStorage
+Core
 
-Getting Started
+* React Native — Cross-platform mobile application development
+* TypeScript — Static typing and improved code maintainability
+* Expo — Development and native tooling
 
-1.  Clone the repository
+Data & Architecture
 
-```bash
-git clone https://github.com/liascope/fidizle.git
-cd fidizle
-```
+* REST API — External data integration
+* OMDb API — Movie and TV series data
+* Context API — Application-wide state management
+* Custom Hooks — Reusable state and logic abstraction
 
-2. Install dependencies
+UI & Interaction
 
-```bash
-npm install
-```
+* @gorhom/bottom-sheet — Interactive bottom sheet interfaces
+* Ionicons / React Native Vector Icons — Iconography
+* Dark / Light Theme — Dynamic application theming
 
-3. Add your API key
+ Native Features
 
-Create a `.env` file in the project root:
+* Native Sharing — Sharing archive content with other installed applications
 
-```env
-EXPO_PUBLIC_OMDB_API_KEY=your_api_key
-```
+ Architecture
 
-4.  Start the app
+The application separates UI components from reusable application logic and shared state.
 
-```bash
-npx expo start
-```
+Context API is used for global application state, while custom hooks encapsulate reusable logic and keep components focused on presentation.
 
-You can then open the app using Expo Go or a development build.
+API-related functionality is handled through reusable logic rather than being tightly coupled to individual UI components.
 
-Environment Variables
+This structure makes the application easier to maintain and extend as additional functionality is introduced.
 
-The following environment variable is required:
+API Integration
 
-| Variable                   | Description              |
-| -------------------------- | ------------------------ |
-| `EXPO_PUBLIC_OMDB_API_KEY` | API key for the OMDb API |
+The application uses the OMDb API to retrieve movie and series information.
 
-Project Status
+The search flow can be summarized as:
 
-🚧 This project is currently under development.
+1. User enters a movie or series title.
+2. The application requests matching results from the OMDb API.
+3. Search results are displayed in the UI.
+4. The user selects a title to view its details.
+5. The title can be personally rated and added to the corresponding archive.
+
+ Highlights
+
+This project focuses on combining external data with a polished mobile experience rather than simply displaying API results.
+
+Key implementation areas include:
+
+* REST API integration
+* Asynchronous data fetching
+* Global state management
+* Reusable custom hooks
+* Reusable React Native components
+* Dynamic theming
+* Native device functionality
+* Responsive mobile layouts
+* Interactive bottom sheets
+* Personal data organization
+
+Project Goals
+
+The main goal of the project was to build a complete React Native application around a realistic use case while focusing on both application architecture and user experience.
+
+The project also served as an opportunity to deepen my experience with:
+
+* React Native
+* TypeScript
+* Mobile UI development
+* API-driven applications
+* State management
+* Reusable component architecture
+* Native platform capabilities
+
+Status
+
+The application is currently a personal portfolio project and has not yet been published to the App Store or Google Play.
+
+Further development may include additional archive functionality, UX improvements, and expanded personalization features.
